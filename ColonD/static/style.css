@@ -1,0 +1,12 @@
+.content {
+    padding: 0 1rem 1rem;
+    display: flex;
+    align-items: center;
+}
+
+nav {
+    background: lightgray;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+}
