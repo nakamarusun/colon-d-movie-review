@@ -1,0 +1,11 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Colon D</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<body>
+
+<formbox>
+{% block form_content %}{% endblock %}
+</formbox>
+
+</body>

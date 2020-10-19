@@ -1,9 +1,21 @@
-{% extends 'form.html' %}
+{% extends 'form_empty.html' %}
 
 {% block title %}
 Register
 {% endblock %}
 
 {% block form_content %}
-So u want to register hah?? HAHAHHAHA
+<img src="../static/title.png" alt="Colon D Logo" style="width:150px; height:auto"></img>
+<h1>Welcome to Colon D</h1>
+<h3>let's set up your account</h3>
+<div class="form-holder">
+			<div><empty>🙋</empty><input type="text" class="input" placeholder="Username" /></div>
+			<div><empty>📧</empty><input type="email" class="input" placeholder="Email" /></div>
+			<div><empty>🔑</empty><input type="password" class="input" placeholder="Password" /></div>
+</div>
+<h4>Tip: Use a combination of varying characters, numbers, and symbols to ensure a strong password.</h4>
+<btn-wrapper>
+<btn type="white">Back</btn>
+<btn>Enter</btn>
+</btn-wrapper>
 {% endblock %}
