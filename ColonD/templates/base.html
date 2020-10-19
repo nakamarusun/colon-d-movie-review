@@ -4,10 +4,11 @@
 <body>
 
 <topbar>
-    <img src="../static/title.png" alt="Colon D Logo" style="width:150px; height:auto">
+    <a href="/">
+    <img src="../static/title.png" alt="Colon D Logo" style="width:150px; height:auto"></a>
     <user>
-        <flex><btn>login</btn></flex>
-        <flex><btn>register</btn></flex>
+        <flex><btn>Login</btn></flex>
+        <flex><btn onclick="location.href='{{ url_for('user.register_user') }}'">Register</btn></flex>
     </user>
 </topbar>
 

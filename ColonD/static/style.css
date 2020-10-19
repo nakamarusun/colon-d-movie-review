@@ -1,5 +1,5 @@
 topbar {
-    background: #bbbbbb;
+    background: #82dbaf;
     display: flex;
     align-items: center;
     padding: 25px;
@@ -37,23 +37,34 @@ user flex {
 user flex btn {
     padding: 5px;
     width: 80px;
-    border-radius: 3px;
+    border-radius: 7.5px;
     margin-left: 12px;
     text-align: center;
     transition: border 0.3s cubic-bezier(0.075, 0.820, 0.165, 1.000);
-    transition: background-color 1s cubic-bezier(0.075, 0.820, 0.165, 1.000);
-    border: 2px solid;
-    border-color: #bbbbbb;
-    color: #36454f;
+    transition: background-color 0.3s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+    border: 2px solid #82dbaf;
+    border-bottom: 2px solid #4a98c5;
+    color: #1a262e;
 }
 
 user flex btn:hover {
     cursor: pointer;
-    border: 2px solid #36454f;
+    border-bottom: 2px solid #4d6a7e;
 }
 
 user flex btn:active {
     cursor: pointer;
-    border: 2px solid #eeeeee;
-    background-color: #eeeeee;
+    background-color:#ee7d32;
+    color: #FFF;
+}
+
+formbox {
+    border: 1.5px solid #dfdfdf;
+    border-radius: 10px;
+    display: flex;
+    margin: auto;
+    width: 50%;
+    padding: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
