@@ -1,7 +1,18 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - ColonD</title>
+<title>{% block title %}{% endblock %} - Colon D</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-    ASDDASKDJASKDJASDJSDJLA
+<body>
+
+<topbar>
+    <img src="../static/title.png" alt="Colon D Logo" style="width:150px; height:auto">
+    <user>
+        <flex><btn>login</btn></flex>
+        <flex><btn>register</btn></flex>
+    </user>
+</topbar>
+
+<content>
 {% block content %}{% endblock %}
-</nav>
+</content>
+
+</body>
