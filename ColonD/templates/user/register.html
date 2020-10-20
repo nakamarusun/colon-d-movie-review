@@ -8,14 +8,14 @@ Register
 <a href="/"><img src="../static/title.png" alt="Colon D Logo" style="width:150px; height:auto"></img></a>
 <h1>Welcome to Colon D</h1>
 <h3>let's set up your account</h3>
-<div class="form-holder">
-			<div><empty>🙋</empty><input type="text" class="input" placeholder="Username" /></div>
-			<div><empty>📧</empty><input type="email" class="input" placeholder="Email" /></div>
-			<div><empty>🔑</empty><input type="password" class="input" placeholder="Password" /></div>
-</div>
+<form class="form-holder" id="form" method="post">
+			<div><empty>🙋</empty><input name="user" type="text" class="input" placeholder="Username" autofocus/></div>
+			<div><empty>📧</empty><input name="email" type="email" class="input" placeholder="Email" /></div>
+			<div><empty>🔑</empty><input name="pass" type="password" class="input" placeholder="Password" /></div>
+</form>
 <h4>Tip: Use a combination of varying characters, numbers, and symbols to ensure a strong password.</h4>
 <btn-wrapper>
-<btn type="white" onclick="history.back()">Back</btn>
-<btn>Register</btn>
+<span class="btn" type="white" onclick="history.back()">Back</span>
+<input class="btn" type="submit" form="form" value="Register"/>
 </btn-wrapper>
 {% endblock %}

@@ -1,9 +1,17 @@
 from flask import (Flask, render_template)
+import mysql.connector as sql
 
 def create_app():
 
     # Create the main app
     app = Flask(__name__)
+
+    # Load config from a json file
+    app.config.from_json('conf.json')
+
+    # Checks whether the app is on development mode
+    if (app.config['ENV'] == "development"):
+        print("Running on development mode.")
 
     # Registers the index to the main html
     @app.route("/")

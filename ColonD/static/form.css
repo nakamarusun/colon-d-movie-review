@@ -45,11 +45,13 @@ formbox btn-wrapper {
     width: 90%;
 }
 
-formbox btn {
+
+.btn {
     user-select: none;
     border: 2px solid #46c1d1;
     border-radius: 10px;
     font-family: Verdana, Tahoma, sans-serif;
+    font-size: 12pt;
     margin: 15px;
     margin-bottom: 0px;
     padding: 12px 32px 12px 32px;
@@ -57,26 +59,26 @@ formbox btn {
     cursor: pointer;
 }
 
-formbox btn:hover {
+.btn:hover {
     background-color: #52cbdb;
     color: white;
 }
 
-formbox btn:active {
+.btn:active {
     background-color: #5dd2d6;
 }
 
-formbox btn[type="white"] {
+.btn[type="white"] {
     border: 2px solid #cecece;
     background-color: white;
 }
 
-formbox btn[type="white"]:hover {
+.btn[type="white"]:hover {
     border-color: #9e9e9e;
     color: inherit;
 }
 
-formbox btn[type="white"]:active {
+.btn[type="white"]:active {
     border-color: #5c5c5c;
 }
 
