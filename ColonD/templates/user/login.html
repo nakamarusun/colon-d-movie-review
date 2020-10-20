@@ -6,16 +6,14 @@ Register
 
 {% block form_content %}
 <a href="/"><img src="../static/title.png" alt="Colon D Logo" style="width:150px; height:auto"></img></a>
-<h1>Welcome to Colon D</h1>
-<h3>let's set up your account</h3>
+<h1>Welcome Back!</h1>
+<h3>let's log you in</h3>
 <div class="form-holder">
-			<div><empty>🙋</empty><input type="text" class="input" placeholder="Username" /></div>
-			<div><empty>📧</empty><input type="email" class="input" placeholder="Email" /></div>
+			<div><empty>🙋</empty><input type="text" class="input" placeholder="Username/Email" /></div>
 			<div><empty>🔑</empty><input type="password" class="input" placeholder="Password" /></div>
 </div>
-<h4>Tip: Use a combination of varying characters, numbers, and symbols to ensure a strong password.</h4>
-<btn-wrapper>
+<btn-wrapper style="margin-top: 40px">
 <btn type="white" onclick="history.back()">Back</btn>
-<btn>Register</btn>
+<btn>Log in</btn>
 </btn-wrapper>
 {% endblock %}

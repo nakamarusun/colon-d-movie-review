@@ -6,3 +6,7 @@ bp = Blueprint("user", __name__, url_prefix="/user")
 @bp.route("register")
 def register_user():
     return render_template("user/register.html")
+
+@bp.route("login")
+def login_user():
+    return render_template("user/login.html")
