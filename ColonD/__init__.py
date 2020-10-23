@@ -1,5 +1,6 @@
 from flask import (Flask, render_template)
-import mysql.connector as sql
+from ColonD import db
+from os import environ
 
 def create_app():
 
@@ -7,11 +8,13 @@ def create_app():
     app = Flask(__name__)
 
     # Load config from a json file
-    app.config.from_json('conf.json')
+    app.config.from_json(environ.get("FLASK_TEST_CONF", "conf.json"))
+    app.config.from_mapping(SECRET_KEY="devsecret")
 
     # Checks whether the app is on development mode
     if (app.config['ENV'] == "development"):
         print("Running on development mode.")
+        db.init_db_connection(app)
 
     # Registers the index to the main html
     @app.route("/")
@@ -30,5 +33,8 @@ def create_app():
     # Register the blueprints
     from ColonD import user
     app.register_blueprint(user.bp)
+
+    if (app.config['ENV'] == "development"):
+        print("App instantiation done!")
 
     return app
