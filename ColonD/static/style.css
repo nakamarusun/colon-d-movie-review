@@ -19,18 +19,72 @@ topbar user {
 
 outer {
     font-family: Arial, Helvetica, sans-serif;
-    display: block;
+    display: flex;
     margin: auto;
-    max-width: 800px;
-    border-left: 1px solid rgb(194, 194, 194);
+    max-width: 1300px;
     min-height: 100vh;
+}
+
+outer sidebar {
+    display: block;
+    width: 140px;
+    border-right: 1px solid rgb(214, 214, 214);
+    padding: 50px 20px 50px 20px;
+    font-size: 11pt;
+    color: #374250;
+    user-select: none;
+}
+
+outer sidebar .links {
+    padding-left: 5px;
+    padding: 7.5px
+}
+
+outer sidebar .links:hover {
+    border-left: 4px solid rgb(233, 75, 101);
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.surprise {
+    margin-top: 10px;
+    padding-left: 10px !important;
+}
+
+.surprise:hover {
+    background: linear-gradient(327deg, #ff6868, #ffc654, #f5ff70, #7cff75, #7bcaff, #9370ff, #d07bff);
+    background-size: 300% 300%;
+
+    -webkit-animation: rainbow 1s infinite;
+    -moz-animation: rainbow 1s infinite;
+    -o-animation: rainbow 1s infinite;
+    animation: rainbow 1s infinite;
+}
+
+@-webkit-keyframes rainbow {
+    0%{background-position:15% 0%}
+    50%{background-position:86% 100%}
+    100%{background-position:15% 0%}
+}
+@-moz-keyframes rainbow {
+    0%{background-position:15% 0%}
+    50%{background-position:86% 100%}
+    100%{background-position:15% 0%}
+}
+@-o-keyframes rainbow {
+    0%{background-position:15% 0%}
+    50%{background-position:86% 100%}
+    100%{background-position:15% 0%}
+}
+@keyframes rainbow {
+    0%{background-position:15% 0%}
+    50%{background-position:86% 100%}
+    100%{background-position:15% 0%}
 }
 
 outer content {
     display: block;
-    margin-top: 50px;
-    margin-left: 25px;
-    margin-right: 25px;
+    flex: auto;
 }
 
 body {
