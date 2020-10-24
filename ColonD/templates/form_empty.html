@@ -7,5 +7,14 @@
 <formbox>
 {% block form_content %}{% endblock %}
 </formbox>
+{% with msgs = get_flashed_messages(with_categories=True) %}
+    {% if msgs %}
+        {% for cat, msg in msgs %}
+        <formflash color="{{cat}}">
+        <warn>{{msg}}</warn>
+        </formflash>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 
 </body>

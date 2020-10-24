@@ -9,7 +9,7 @@ formbox {
     align-items: center;
     padding-top: 20px;
     padding-bottom: 20px;
-    box-shadow: 3px 3px 4px rgb(230, 230, 230);
+    box-shadow: 3px 3px 8px rgb(230, 230, 230);
 }
 
 formbox h1 {
@@ -135,4 +135,30 @@ formbox btn-wrapper {
 .form-holder:focus-within {
     border: 2px solid #9cd8da;
     background-color: rgb(240, 240, 240);
+}
+
+formflash {
+    margin: 50px auto;
+    display: flex;
+    max-width: 200px;
+    font-family: Helvetica;
+    font-size: 16pt;
+    background-color: #074d38;
+    padding: 20px 50px 20px 50px;
+    border-radius: 20px;
+    color: white;
+    align-items: center;
+    box-shadow: 5px 5px 15px rgb(187, 187, 187);
+}
+
+formflash warn {
+    margin: auto;
+}
+
+formflash[color="Error"] {
+    background-color: rgb(179, 19, 19);
+}
+
+formflash[color="Success"] {
+    background-color: rgb(10, 163, 10);
 }

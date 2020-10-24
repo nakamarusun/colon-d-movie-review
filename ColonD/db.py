@@ -51,3 +51,5 @@ def init_db_connection(app):
             cursor.execute("CREATE DATABASE " + app.config['DATABASE_NAME'])
             cursor.execute("USE " + app.config['DATABASE_NAME'])
             init_database(app)
+
+    cursor.execute("USE " + app.config['DATABASE_NAME'])

@@ -61,6 +61,11 @@ outer sidebar .links:hover {
     animation: rainbow 1s infinite;
 }
 
+.copyright {
+    font-size: 9pt;
+    margin-top: 40px;
+}
+
 @-webkit-keyframes rainbow {
     0%{background-position:15% 0%}
     50%{background-position:86% 100%}
@@ -80,11 +85,6 @@ outer sidebar .links:hover {
     0%{background-position:15% 0%}
     50%{background-position:86% 100%}
     100%{background-position:15% 0%}
-}
-
-outer content {
-    display: block;
-    flex: auto;
 }
 
 body {
@@ -121,4 +121,26 @@ user flex btn:active {
     background-color:#4ea5ac;
     color: #FFF;
     transition: background-color 0.1s;
+}
+
+outer content {
+    display: block;
+    flex: auto;
+    padding: 50px 30px 50px 30px;
+}
+
+outer content h1 {
+    margin: 0px;
+    font-size: 22pt;
+    font-family: Helvetica;
+    font-weight: normal;
+}
+
+outer content h3 {
+    margin: 0px;
+    font-size: 13pt;
+    font-family: Helvetica;
+    font-weight: normal;
+    color: #7a7a7a;
+    letter-spacing: -0.75px;
 }
