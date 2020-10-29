@@ -31,8 +31,9 @@ def create_app():
     reg_static_uncache(app)
 
     # Register the blueprints
-    from ColonD import user
+    from ColonD import user, movies
     app.register_blueprint(user.bp)
+    app.register_blueprint(movies.bp)
 
     if (app.config['ENV'] == "development"):
         print("App instantiation done!")

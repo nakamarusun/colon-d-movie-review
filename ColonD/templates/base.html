@@ -1,6 +1,9 @@
 <!doctype html>
+<head>
 <title>{% block title %}{% endblock %} - Colon D</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% block extra_head %}{% endblock %}
+</head>
 <body>
 
 <topbar>
@@ -19,9 +22,9 @@
 
 <outer>
     <sidebar>
-    <div class="links">Home</div>
+    <div class="links" onclick="location.href='/'">Home</div>
     <div class="links">Posts</div>
-    <div class="links">Movies</div>
+    <div class="links" onclick="location.href='{{ url_for('movies.home') }}'">Movies</div>
     <div class="links surprise">Surprise me!</div>
     <div class="copyright">©2020 DB srya</div>
     </sidebar>

@@ -11,25 +11,25 @@ CREATE TABLE user (
 );
 
 CREATE TABLE directors (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  id VARCHAR(10) PRIMARY KEY NOT NULL,
   director_name VARCHAR(40) NOT NULL,
-  birth_year TINYINT,
+  birth_year SMALLINT,
   well_known_titles VARCHAR(100)
 );
 
 CREATE TABLE movies (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  id VARCHAR(10) PRIMARY KEY NOT NULL,
   movie_name VARCHAR(100) NOT NULL,
   year_rel SMALLINT,
-  runtime TINYINT,
+  runtime SMALLINT,
   genres TEXT,
-  director_id INTEGER NOT NULL,
+  director_id VARCHAR(10) NOT NULL,
   FOREIGN KEY (director_id) REFERENCES directors(id)
 );
 
 CREATE TABLE review (
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  movie_id INTEGER NOT NULL,
+  movie_id VARCHAR(10) NOT NULL,
   author_id INTEGER NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   title TEXT NOT NULL,

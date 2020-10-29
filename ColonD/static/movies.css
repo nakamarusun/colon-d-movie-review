@@ -1,0 +1,43 @@
+.movielist {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px
+}
+
+.moviecontainer {
+    flex: auto;
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 0.5px solid rgb(209, 209, 209);
+}
+
+.moviecontainer img {
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+}
+
+.moviecontainer .content {
+    margin: 5px 20px 5px 20px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.moviecontainer .content h1 {
+    font-size: 18pt;
+    color: rgb(20, 20, 20);
+}
+
+.moviecontainer .content h2 {
+    font-size: 11pt;
+    font-weight: bold;
+    color: rgb(73, 73, 73);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.moviecontainer .content h3 {
+    font-size: 11pt;
+    color: rgb(129, 129, 129);
+    margin-top: 5px;
+}

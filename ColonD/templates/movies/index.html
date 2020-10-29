@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='movies.css') }}">
+{% endblock %}
+
+{% block title %}
+{{flavor}} movies
+{% endblock %}
+
+{% block content %}
+<h1>Our selection of movies</h1>
+<h3>Make yourself at home.</h3>
+<div class="movielist">
+    {% for m in movies %}
+    <div class="moviecontainer">
+        <img src="https://3.bp.blogspot.com/-IwrhQCgSwQ8/WEgY8vFn8mI/AAAAAAAAAeE/OsUpci4DacIyH4S5usj4xFZioGZh4vt2gCLcB/s1600/the-shawshank-redemption.jpg" alt="Shawshank Redemption">
+        <div class="content">
+            <h1>{{ m[0] }}</h1>
+            <h2>Directed by {{ m[3] }}</h2>
+            <h3>{{ m[1] }} ‧ {{ m[2] }} minutes</h3>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
