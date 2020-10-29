@@ -76,12 +76,16 @@ def login_user():
         # DB Cursor
         cursor = db.mydb.cursor()
 
+        username = None
+
         # See if the user exists in the db
         cursor.execute("SELECT * FROM user WHERE username='{user}' OR email='{user}'".format(user=user))
-        if not cursor.fetchall():
+        query = cursor.fetchall()
+        if not query:
             error.append("User/email not found!")
 
         else:
+            username = query[0][1]
             cursor.execute("SELECT password FROM user WHERE username='{user}' OR email='{user}'".format(user=user))
             pass_hash = cursor.fetchall()[0][0]
 
@@ -92,7 +96,7 @@ def login_user():
         if error:
             flash("\n".join(error), "Error")
         else:
-            session["user"] = user
+            session["user"] = username
             return redirect(url_for("index"))
     
     return render_template("user/login.html")
