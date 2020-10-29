@@ -1,5 +1,5 @@
-from flask import Blueprint, request
-from flask.helpers import flash
+from flask import Blueprint, request, redirect, session
+from flask.helpers import flash, url_for
 from flask.templating import render_template
 from ColonD import db
 from werkzeug.security import (check_password_hash, generate_password_hash)
@@ -8,6 +8,12 @@ bp = Blueprint("user", __name__, url_prefix="/user")
 
 @bp.route("register", methods=["GET", "POST"])
 def register_user():
+
+    # Logs out the user if they are logged in
+    if session.get("user", None) != None:
+        flash("You are logged out.", "Success")
+        session.clear()
+
     if request.method == "POST":
         # POST request when registering.
         user = request.form["user"]
@@ -30,7 +36,11 @@ def register_user():
             # If email already exists
             error.append("Email already exists!")
 
-        if not error:
+        if error:
+            # If error exists
+            flash("\n".join(error), "Error")
+
+        else:
             # If there is no errors in the list
             # Inserts the new user into the database
             cursor.execute("INSERT INTO user (username, email, password) VALUES ('{}', '{}', '{}')"
@@ -40,15 +50,21 @@ def register_user():
                 generate_password_hash(password, salt_length=20)
             ))
             db.mydb.commit()
-            flash("Registration Succeeded!", "Success")
-        else:
-            # If error exists
-            flash("\n".join(error), "Error")
+            flash("Registration Succeeded!, log in to enter the site.", "Success")
+            return redirect(url_for("user.login_user"))
 
     return render_template("user/register.html")
 
 @bp.route("login", methods=["GET", "POST"])
 def login_user():
+
+    print(session.get("user", None))
+
+    # Logs out the user if they are logged in
+    if session.get("user", None) != None:
+        flash("You are logged out.", "Success")
+        session.clear()
+
     if request.method == "POST":
         
         user = request.form["user"]
@@ -76,6 +92,13 @@ def login_user():
         if error:
             flash("\n".join(error), "Error")
         else:
-            return "Welcome!"
+            session["user"] = user
+            return redirect(url_for("index"))
     
     return render_template("user/login.html")
+
+@bp.route("logout")
+def logout_user():
+    # Logs out the user from the website
+    session.clear()
+    return redirect(url_for("index"))

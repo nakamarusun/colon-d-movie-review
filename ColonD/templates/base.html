@@ -7,8 +7,13 @@
     <a href="/">
     <img src="../static/title.png" alt="Colon D Logo" style="width:150px; height:auto"></a>
     <user>
+        {% if session.get("user", None) == None %}
         <flex><btn onclick="location.href='{{ url_for('user.login_user') }}'">Login</btn></flex>
         <flex><btn onclick="location.href='{{ url_for('user.register_user') }}'">Register</btn></flex>
+        {% else %}
+        <flex>Welcome, {{ session["user"] }}!</flex>
+        <flex><btn onclick="location.href='{{ url_for('user.logout_user') }}'">Logout</btn></flex>
+        {% endif %}
     </user>
 </topbar>
 
