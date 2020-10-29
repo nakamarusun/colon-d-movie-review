@@ -10,16 +10,11 @@ CREATE TABLE user (
   password TEXT NOT NULL
 );
 
-CREATE TABLE review (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  movie_id INTEGER FOREIGN KEY NOT NULL,
-  author_id INTEGER FOREIGN KEY NOT NULL,
-  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  title TEXT NOT NULL,
-  body TEXT NOT NULL,
-  star TINYINT UNSIGNED,
-  FOREIGN KEY (movie_id) REFERENCES movies(id),
-  FOREIGN KEY (author_id) REFERENCES user(id)
+CREATE TABLE directors (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  director_name VARCHAR(40) NOT NULL,
+  birth_year TINYINT,
+  well_known_titles VARCHAR(100)
 );
 
 CREATE TABLE movies (
@@ -28,13 +23,18 @@ CREATE TABLE movies (
   year_rel SMALLINT,
   runtime TINYINT,
   genres TEXT,
-  director_id INTEGER FOREIGN KEY NOT NULL,
+  director_id INTEGER NOT NULL,
   FOREIGN KEY (director_id) REFERENCES directors(id)
 );
 
-CREATE TABLE directors (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  director_name VARCHAR(40) NOT NULL,
-  birth_year TINYINT,
-  well_known_titles VARCHAR(100)
+CREATE TABLE review (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  movie_id INTEGER NOT NULL,
+  author_id INTEGER NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  star TINYINT UNSIGNED,
+  FOREIGN KEY (movie_id) REFERENCES movies(id),
+  FOREIGN KEY (author_id) REFERENCES user(id)
 );

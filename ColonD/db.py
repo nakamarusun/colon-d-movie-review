@@ -19,6 +19,7 @@ def init_database(app):
     # Initialize all the database and all the
     # tables and keep it empty.
 
+    print("initializing tables...")
     with mydb.cursor() as cursor:
         with app.open_resource("schema.sql", "rt") as file:
             for line in file.read().split(";"):
