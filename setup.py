@@ -8,6 +8,8 @@ setup(
     zip_safe=False,
     install_requires=[
         'flask',
-        'mysql-connector-python'
+        'mysql-connector-python',
+        'beautifulsoup4',
+        'requests'
     ],
 )
