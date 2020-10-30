@@ -14,7 +14,7 @@
 
 .moviecontainer img {
     width: 125px;
-    height: 125px;
+    height: 175px;
     object-fit: cover;
 }
 
@@ -40,4 +40,68 @@
     font-size: 11pt;
     color: rgb(129, 129, 129);
     margin-top: 5px;
+}
+
+pages {
+    display: flex;
+    justify-content: center;
+    margin: 50px auto auto auto;
+}
+
+pages .button {
+    padding: 10px 20px 10px 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13pt;
+    font-weight: bold;
+    border-radius: 100px;
+    user-select: none;
+}
+
+pages .button[on="true"] {
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+}
+
+pages .button:hover[on="true"] {
+    background-color: rgb(216, 18, 84);
+    color: aliceblue;
+}
+
+pages .button:active[on="true"] {
+    background-color:rgb(163, 16, 65);
+    color: aliceblue;
+}
+
+pages .button[on="false"] {
+    color: rgb(173, 173, 173);
+    cursor: default;
+}
+
+pages .page_field {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12pt;
+    color: rgb(65, 65, 65);
+    border-radius: 5px;
+    width: 30px;
+    height: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 5px;
+    text-align: right;
+}
+
+pages .page_field:focus {
+
+    border-radius: 5px;
+    color: rgb(36, 36, 36);
+}
+
+pages h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12pt !important;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    margin-right: 15px !important;
 }
