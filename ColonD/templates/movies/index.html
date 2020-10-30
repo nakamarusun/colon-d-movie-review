@@ -24,11 +24,21 @@
     {% endfor %}
 </div>
 <pages>
-<div class="button" on="false">&lt;&lt;First Page</div>
-<div class="button" on="false">&lt;Previous Page</div>
-<input class="page_field" name="page" type="text" placeholder="1"/>
-<h1>/ many</h1>
-<div class="button" on="true">Next Page&gt;</div>
-<div class="button" on="true">Last Page&gt;&gt;</div>
+<div class="button" on="{{ "true" if page > 1 else "false" }}" onclick="location.href='{{ url_for('movies.home') }}?pg=1'">&lt;&lt;First Page</div>
+<div class="button" on="{{ "true" if page > 1 else "false" }}" onclick="location.href='{{ url_for('movies.home') }}?pg={{ page - 1 }}'">&lt;Previous Page</div>
+<input id="page_input" class="page_field" name="page" type="text" value="{{ page }}"/>
+<h1>/ {{ max_page }}</h1>
+<div class="button" on="{{ "true" if page < max_page else "false" }}" onclick="location.href='{{ url_for('movies.home') }}?pg={{ page + 1 }}'">Next Page&gt;</div>
+<div class="button" on="{{ "true" if page < max_page else "false" }}" onclick="location.href='{{ url_for('movies.home') }}?pg={{ max_page }}'">Last Page&gt;&gt;</div>
 </pages>
+<script>
+var input = document.getElementById("page_input");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+
+   location.href=location.protocol + '//' + location.host + location.pathname + "?pg=" + Math.max(1, Math.min(input.value, parseInt("{{ max_page }}", 10)));
+  }
+});
+</script>
 {% endblock %}

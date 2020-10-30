@@ -6,6 +6,7 @@ from ColonD.util import util
 from random import choice
 from requests import get
 from bs4 import BeautifulSoup
+from math import ceil
 import re
 
 bp = Blueprint("movies", __name__, url_prefix="/movies")
@@ -18,21 +19,26 @@ def home():
     content_per_page = content_per_page if content_per_page < 20 else 20
     page = int(request.args.get("pg", 1))
 
-    cursor = db.mydb.cursor()
-    
-    # Gets all the movie details from an offset (display as page)
-    cursor.execute("SELECT movie_name, year_rel, runtime, director_name FROM movies m JOIN directors d ON m.director_id=d.id LIMIT {}, {}"
-    .format((page - 1) * content_per_page, content_per_page))
+    query = None
 
-    query = cursor.fetchall()
+    with db.mydb.cursor() as cursor:
+    
+        # Gets all the movie details from an offset (display as page)
+        # cursor.execute("SELECT movie_name, year_rel, runtime, director_name FROM movies m JOIN directors d ON m.director_id=d.id LIMIT {}, {}"
+        # .format((page - 1) * content_per_page, content_per_page))
+
+        # Without offset
+        cursor.execute("SELECT movie_name, year_rel, runtime, director_name FROM movies m JOIN directors d ON m.director_id=d.id")
+
+        query = cursor.fetchall()
 
     # The amount of movie available in the site.
-    movies = len(query)
+    max_page = int(ceil(len(query) / content_per_page))
 
-    small_image = current_app.config['SMALL_IMAGE']
+    # Gets the offset
+    query = query[(page - 1) * content_per_page:(page - 1) * content_per_page + content_per_page]
 
     # Code snippet to get all the urls for scraping google images.
-
     images = []
     for row in query:
         # Gets the html page that the image is contained.
@@ -42,7 +48,7 @@ def home():
         # thumbnail from google, and the user have to load the links individually.
         # If it is false, then the image got will be higher quality, and the user does
         # not have to load the link individually.
-        if small_image:
+        if current_app.config['SMALL_IMAGE']:
             html = get('https://www.google.com/search?q={}+movie+poster+{}&tbm=isch'.format(row[0], row[3])).text
             bp = BeautifulSoup(html, 'html.parser')
             img = bp.find_all('img')
@@ -63,8 +69,9 @@ def home():
             img = None
             if not raw_data:
                 # Debugging purposes
-                with open("failed_html.html", "wb+") as file:
-                    file.write(html)
+                with open("failed.html", "wb+") as file:
+                    file.write(bytes(html, "utf-8"))
+                    print("Logged failed image parsing.")
                 # Placeholder image.
                 img = url_for('static', filename='title.png')
             else:
@@ -76,4 +83,9 @@ def home():
 
     query = [ list(query[i]) + [images[i]] for i in range(len(images)) ]
 
-    return render_template("movies/index.html", flavor=choice(flavor_words), movies=query)
+    return render_template("movies/index.html",
+    flavor=choice(flavor_words),
+    movies=query,
+    page=page,
+    max_page=max_page,
+    )
