@@ -10,12 +10,27 @@
     padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: 0.5px solid rgb(209, 209, 209);
+    cursor: pointer;
+    transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.moviecontainer:hover {
+    background-color: rgb(247, 233, 245);
+}
+
+.moviecontainer:active {
+    background-color: rgb(241, 209, 228);
 }
 
 .moviecontainer img {
     width: 125px;
     height: 175px;
     object-fit: cover;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.moviecontainer img:hover {
+    transform: scale(1.1);
 }
 
 .moviecontainer .content {
@@ -94,7 +109,6 @@ pages .page_field {
 }
 
 pages .page_field:focus {
-
     border-radius: 5px;
     color: rgb(36, 36, 36);
 }
@@ -105,4 +119,50 @@ pages h1 {
     margin-top: auto !important;
     margin-bottom: auto !important;
     margin-right: 15px !important;
+}
+
+.mov_title {
+    display: flex;
+    max-width: 875px;
+}
+
+.mov_title img {
+    width: 162px;
+    height: 240px;
+    object-fit: cover;
+}
+
+.mov_title h1 {
+    font-size: 33pt;
+    font-weight: bold;
+}
+
+.mov_title h3 {
+    font-size: 16pt;
+}
+
+.mov_title .star {
+    flex: auto;
+    text-align: right;
+    font-size: 30pt;
+    margin-top: 20px;
+    margin-right: 20px;
+    
+}
+
+.mov_title .star h5 {
+    font-size: 10pt;
+    margin-top: 0px;
+    font-weight: normal;
+    color: rgb(86, 92, 97);
+}
+
+.line_div {
+    flex: auto;
+    border-top: 1px solid #cfcfcf;
+    border-bottom: 1px solid #cfcfcf;
+    margin-top: 30px;
+    padding: 10px 5px 10px 5px;
+    font-size: 16pt;
+    color: rgb(68, 68, 68);
 }

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='movies.css') }}">
+{% endblock %}
+
+{% block title %}
+{{ movie[0] }}
+{% endblock %}
+
+{% block content %}
+<div class="mov_title">
+    <img src="{{ img }}">
+    <div style="margin-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; justify-content: flex-end;">
+    <h1>{{ movie[0] }}</h1>
+    <h3>Directed by {{ movie[3] }}</h3>
+    </div>
+    <div class="star">
+    <span><logo>⭐</logo> 5.5/10</span>
+    <h5>(of 890321 reviews)</h5>
+    </div>
+</div>
+<div class="line_div">Reviews:</div>
+{% endblock %}

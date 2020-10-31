@@ -13,6 +13,41 @@ import re
 bp = Blueprint("movies", __name__, url_prefix="/movies")
 flavor_words = ["Great", "Fine", "Marvelous", "Pretty", "Cool"]
 
+def get_movie_poster(id, name, director):
+    """
+        Will return a link / base64 image based on
+        the movie id entered. If it does not exist,
+        returns a None.
+    """
+
+    image = None
+
+    # Checks whether the image have been downloaded yet.
+    poster_dir = path.join("poster_cache", id)
+    if path.exists(path.join(current_app.instance_path, poster_dir)):
+        
+        # Tries to read from the file, and loads te image
+        try:
+            with current_app.open_instance_resource(poster_dir, "rt") as image_f:
+                # Appends the image file to the list.
+                image = image_f.read()
+
+        except Exception:
+            # If error, then load default image.
+            pass
+    
+    else:     
+        # Gets the image from google image scraping        
+        image = util.scrape_g_image("{}+movie+poster+{}".format(name, director), current_app.config['SMALL_IMAGE'])
+
+        # If the image is successfully loaded,
+        if image:
+            # Writes the image to a file for future caching.
+            with current_app.open_instance_resource(poster_dir, "wt") as image_f:
+                image_f.write(image)
+
+    return image
+
 @bp.route("/")
 def home():
 
@@ -38,31 +73,7 @@ def home():
     images = []
     for row in query:
 
-        image = None
-
-        # Checks whether the image have been downloaded yet.
-        poster_dir = path.join("poster_cache", row[4])
-        if path.exists(path.join(current_app.instance_path, poster_dir)):
-            
-            # Tries to read from the file, and loads te image
-            try:
-                with current_app.open_instance_resource(poster_dir, "rt") as image_f:
-                    # Appends the image file to the list.
-                    image = image_f.read()
-
-            except Exception:
-                # If error, then load default image.
-                pass
-        
-        else:     
-            # Gets the image from google image scraping        
-            image = util.scrape_g_image("{}+movie+poster+{}".format(row[0], row[3]), current_app.config['SMALL_IMAGE'])
-
-            # If the image is successfully loaded,
-            if image:
-                # Writes the image to a file for future caching.
-                with current_app.open_instance_resource(poster_dir, "wt") as image_f:
-                    image_f.write(image)
+        image = get_movie_poster(row[4], row[0], row[3])
 
         if not image:
             # Load placeholder image
@@ -82,4 +93,18 @@ def home():
 
 @bp.route("/<string:id>")
 def movie(id):
-    return id
+
+    cursor = db.mydb.cursor()
+    cursor.execute("SELECT movie_name, year_rel, runtime, director_name, m.id FROM movies m JOIN directors d ON m.director_id=d.id WHERE m.id='{}'".format(id))
+
+    query = cursor.fetchall()
+
+    if len(query) == 0:
+        # If there is no movie associated with that id
+        return "no tin here"
+    else:
+        # If the movie exist.
+        mov = query[0]
+        return render_template("movies/movies.html",
+        movie=mov,
+        img=get_movie_poster(mov[4], mov[0], mov[3]))
