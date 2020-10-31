@@ -9,13 +9,13 @@ All dataset are taken in 28th of October 2020.
 Load into MySQL by
 
 ```
-LOAD DATA LOCAL INFILE './ColonD/DBblob/movies_fix.tsv'
-INTO TABLE movies
+LOAD DATA LOCAL INFILE './ColonD/DBblob/directors_fix.tsv'
+INTO TABLE directors
 FIELDS TERMINATED BY '\t'
 LINES TERMINATED BY '\n';
 
-LOAD DATA LOCAL INFILE './ColonD/DBblob/directors_fix.tsv'
-INTO TABLE directors
+LOAD DATA LOCAL INFILE './ColonD/DBblob/movies_fix.tsv'
+INTO TABLE movies
 FIELDS TERMINATED BY '\t'
 LINES TERMINATED BY '\n';
 ```
