@@ -1,6 +1,6 @@
 from flask import (Flask, render_template)
-from ColonD import db
-from os import environ
+from ColonD import db, instances
+from os import environ, makedirs
 
 def create_app():
 
@@ -15,6 +15,15 @@ def create_app():
     if (app.config['ENV'] == "development"):
         print("Running on development mode.")
         db.init_db_connection(app)
+
+    # Initializes all the instance folder
+    try:
+        makedirs(app.instance_path)
+    except OSError:
+        pass
+
+    # Initializes all the instance folder
+    instances.init_instances(app)
 
     # Registers the index to the main html
     @app.route("/")

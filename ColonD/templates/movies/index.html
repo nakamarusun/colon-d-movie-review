@@ -24,12 +24,12 @@
     {% endfor %}
 </div>
 <pages>
-<div class="button" on="{{ "true" if page > 1 else "false" }}" onclick="location.href='{{ url_for('movies.home') }}?pg=1'">&lt;&lt;First Page</div>
-<div class="button" on="{{ "true" if page > 1 else "false" }}" onclick="location.href='{{ url_for('movies.home') }}?pg={{ page - 1 }}'">&lt;Previous Page</div>
+<div class="button" on="{{ "true" if page > 1 else "false" }}" onclick="location.href='{{ movies_url }}?pg=1'">&lt;&lt;First Page</div>
+<div class="button" on="{{ "true" if page > 1 else "false" }}" onclick="location.href='{{ movies_url }}?pg={{ page - 1 }}'">&lt;Previous Page</div>
 <input id="page_input" class="page_field" name="page" type="text" value="{{ page }}"/>
 <h1>/ {{ max_page }}</h1>
-<div class="button" on="{{ "true" if page < max_page else "false" }}" onclick="location.href='{{ url_for('movies.home') }}?pg={{ page + 1 }}'">Next Page&gt;</div>
-<div class="button" on="{{ "true" if page < max_page else "false" }}" onclick="location.href='{{ url_for('movies.home') }}?pg={{ max_page }}'">Last Page&gt;&gt;</div>
+<div class="button" on="{{ "true" if page < max_page else "false" }}" onclick="location.href='{{ movies_url }}?pg={{ page + 1 }}'">Next Page&gt;</div>
+<div class="button" on="{{ "true" if page < max_page else "false" }}" onclick="location.href='{{ movies_url }}?pg={{ max_page }}'">Last Page&gt;&gt;</div>
 </pages>
 <script>
 var input = document.getElementById("page_input");

@@ -88,4 +88,5 @@ def home():
     movies=query,
     page=page,
     max_page=max_page,
+    movies_url=url_for('movies.home')
     )

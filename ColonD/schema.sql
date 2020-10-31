@@ -1,8 +1,3 @@
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS post;
-DROP TABLE IF EXISTS movies;
-DROP TABLE IF EXISTS directors;
-
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
   username VARCHAR(30) UNIQUE NOT NULL,
@@ -24,7 +19,8 @@ CREATE TABLE movies (
   runtime SMALLINT,
   genres TEXT,
   director_id VARCHAR(10) NOT NULL,
-  FOREIGN KEY (director_id) REFERENCES directors(id)
+  FOREIGN KEY (director_id) REFERENCES directors(id),
+  poster_dir VARCHAR(10)
 );
 
 CREATE TABLE review (
@@ -38,3 +34,13 @@ CREATE TABLE review (
   FOREIGN KEY (movie_id) REFERENCES movies(id),
   FOREIGN KEY (author_id) REFERENCES user(id)
 );
+
+LOAD DATA LOCAL INFILE './ColonD/DBblob/directors_fix.tsv'
+INTO TABLE directors
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n';
+
+LOAD DATA LOCAL INFILE './ColonD/DBblob/movies_fix.tsv'
+INTO TABLE movies
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n';
