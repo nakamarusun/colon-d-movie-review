@@ -54,45 +54,9 @@ def home():
                 # If error, then load default image.
                 pass
         
-        else:
-            # Gets the html page that the image is contained.
-
-            # Here we can adjust what mode we want to retrieve the image.
-            # If small_image is true, we get all the image based on their very small
-            # thumbnail from google, and the user have to load the links individually.
-            # If it is false, then the image got will be higher quality, and the user does
-            # not have to load the link individually.
-            if current_app.config['SMALL_IMAGE']:
-                html = get('https://www.google.com/search?q={}+movie+poster+{}&tbm=isch'.format(row[0], row[3])).text
-                bp = BeautifulSoup(html, 'html.parser')
-                img = bp.find_all('img')
-                
-                image = img[1].get('src')
-            else:
-                # The header is there so that as if a windows computer is accessing the website.
-                # This will provide a different response from small_image=True.
-                from time import time
-
-                html = get('https://www.google.com/search?q={}+movie+poster+{}&tbm=isch'.format(row[0], row[3]), headers={
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0", "Accept": "image/webp,*/*"
-                    }).text
-
-                # Defines a RegEx pattern in which the image is contained
-                pattern = re.compile(r"_setImgSrc\('[0-9]+','[^']+'\)", re.MULTILINE)
-
-                # Searches the text
-
-                raw_data = pattern.search(html)
-
-                if not raw_data:
-                    # Debugging purposes
-                    with open("failed.html", "wb+") as file:
-                        file.write(bytes(html, "utf-8"))
-                        print("Logged failed image parsing.")
-                else:
-                    # Raw data
-                    img_str = raw_data.group()
-                    image = img_str.replace("\\", "")[util.findnth(img_str, "'", 3) + 1:-2]
+        else:     
+            # Gets the image from google image scraping        
+            image = util.scrape_g_image("{}+movie+poster+{}".format(row[0], row[3]), current_app.config['SMALL_IMAGE'])
 
             # If the image is successfully loaded,
             if image:
@@ -115,3 +79,7 @@ def home():
     max_page=max_page,
     movies_url=url_for('movies.home')
     )
+
+@bp.route("/<string:id>")
+def movie(id):
+    return id

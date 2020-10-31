@@ -19,8 +19,7 @@ CREATE TABLE movies (
   runtime SMALLINT,
   genres TEXT,
   director_id VARCHAR(10) NOT NULL,
-  FOREIGN KEY (director_id) REFERENCES directors(id),
-  poster_dir VARCHAR(10)
+  FOREIGN KEY (director_id) REFERENCES directors(id)
 );
 
 CREATE TABLE review (
