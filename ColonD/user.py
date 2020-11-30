@@ -107,7 +107,7 @@ def login_user():
 def logout_user():
     # Logs out the user from the website
     session.clear()
-    return redirect(url_for("index"))
+    return redirect(request.referrer)
 
 def login_required(view):
     #View decorator that redirects anonymous users to the login page.
