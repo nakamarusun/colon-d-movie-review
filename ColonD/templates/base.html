@@ -9,7 +9,7 @@
 
 <topbar>
     <a href="/">
-    <img src="../static/title.png" alt="Colon D Logo" style="width:150px; height:auto"></a>
+    <img src="{{url_for('static', filename='title.png')}}" alt="Colon D Logo" style="width:150px; height:auto"></a>
     <user>
         {% if session.get("user", None) == None %}
         <flex><btn onclick="location.href='{{ url_for('user.login_user') }}'">Login</btn></flex>

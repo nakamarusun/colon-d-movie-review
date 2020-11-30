@@ -85,9 +85,9 @@ def login_user():
             error.append("User/email not found!")
 
         else:
-            username = query[0][1]
-            cursor.execute("SELECT password FROM user WHERE username='{user}' OR email='{user}'".format(user=user))
-            pass_hash = cursor.fetchall()[0][0]
+            query = query[0]
+            username = query[1]
+            pass_hash = cursor.fetchall()[0][3]
 
             # Checks password hash
             if not check_password_hash(pass_hash, password):
@@ -97,6 +97,7 @@ def login_user():
             flash("\n".join(error), "Error")
         else:
             session["user"] = username
+            session["user_id"] = query[0]
             return redirect(url_for("index"))
     
     return render_template("user/login.html")

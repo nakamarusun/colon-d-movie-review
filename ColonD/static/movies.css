@@ -197,6 +197,7 @@ pages h1 {
     color: rgb(38, 145, 233);
 }
 
+
 form label {
     font-family: SourceSansPro;
     font-weight: bold;
@@ -225,4 +226,20 @@ form textarea {
     padding: 5px 10px 5px 10px;
     border-radius: 2px;
     margin-left: 20px;
+}
+
+.star_container {
+    margin-left: 10px;
+}
+
+.star_container .ch {
+    color: gold;
+}
+
+.star_container .nch {
+    color: grey;
+}
+
+.fa-star {
+    cursor: pointer;
 }

@@ -8,6 +8,7 @@ from requests import get
 from bs4 import BeautifulSoup
 from math import ceil
 from os import path
+from datetime import datetime
 import re
 
 bp = Blueprint("movies", __name__, url_prefix="/movies")
@@ -104,7 +105,6 @@ def get_movie(id):
 def movie(id):
 
     mov = get_movie(id)
-
     if not mov:
         # If there is no movie associated with that id
         abort(404)
@@ -114,14 +114,34 @@ def movie(id):
         movie=mov,
         img=get_movie_poster(mov[4], mov[0], mov[3]))
 
-@bp.route("/<string:id>/post")
+@bp.route("/<string:id>/post", methods=["GET", "POST"])
 def movie_post(id):
 
     mov = get_movie(id)
-    if not mov:
-        # If there is no movie associated with that id
-        abort(404)
-    else:
-        return render_template("movies/post.html",
-        movie=mov,
-        img=get_movie_poster(mov[4], mov[0], mov[3]))
+
+    if request.method == "GET":
+        # Get the forum posting thingy
+        if not mov:
+            # If there is no movie associated with that id
+            abort(404)
+        else:
+            return render_template("movies/post.html",
+            movie=mov,
+            img=get_movie_poster(mov[4], mov[0], mov[3]))
+    
+    elif request.method == "POST":
+        title = request.form["title"]
+        content = request.form["review"]
+        star = request.form["star"]
+
+        if not mov:
+            abort(404)
+        else:
+            user_id = session.get("user_id")
+            if user_id:
+                cursor = db.mydb.cursor()
+                cursor.execute("INSERT INTO review (movie_id, author_id, created, title, body, star) VALUES(%s, %s, %s, %s, %s, %s, %s)", (
+                    id, user_id, datetime.now(), title, content, star
+                ))
+
+        return redirect(url_for("movies.movie", id=id))

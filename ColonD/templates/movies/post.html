@@ -2,6 +2,7 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='movies.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block title %}
@@ -23,6 +24,46 @@
 <form method="POST">
     <label>Title: <input type="text" id="title" name="title" maxlength="75" size="70" /></label>
     <label>Content: <textarea id="review" name="review" rows="12" cols="68"></textarea></label>
+    <label>Your Rating:<div class="star_container">
+        <i class="fa fa-star nch" id="0"></i>
+        <i class="fa fa-star nch" id="1"></i>
+        <i class="fa fa-star nch" id="2"></i>
+        <i class="fa fa-star nch" id="3"></i>
+        <i class="fa fa-star nch" id="4"></i>
+        <i class="fa fa-star nch" id="5"></i>
+        <i class="fa fa-star nch" id="6"></i>
+        <i class="fa fa-star nch" id="7"></i>
+        <i class="fa fa-star nch" id="8"></i>
+        <i class="fa fa-star nch" id="9"></i>
+    </div><div id="star_count" style="color: rgb(83, 83, 83); margin-left: 10px"> (-/--)</div></label>
+    <input id="star_var" type="hidden" name="star" value="5" />
+    <script>
+        var stars = 5;
+        function updateStar() {
+            document.getElementById("star_count").innerHTML = "("+ stars.toString() +"/10)";
+            for (var j = 0; j < 10; j++) {
+                if (j < stars) {
+                    document.getElementById(j.toString()).classList.remove("nch");
+                    document.getElementById(j.toString()).classList.add("ch");
+                } else {
+                    document.getElementById(j.toString()).classList.add("nch");
+                    document.getElementById(j.toString()).classList.remove("ch");
+                }
+            }
+        }
+        for (var i = 0; i < 10; i++) {
+            document.getElementById(i.toString()).addEventListener('click', function() {
+                // Function to update star
+                stars = parseInt(this.id) + 1;
+                document.getElementById("star_var").value = stars;
+                updateStar();
+            });
+        }
+        updateStar();
+    </script>
+    <br>
+    <input type="button" value="Back" onclick="location.href=location.href.substring(0, location.href.lastIndexOf('/'));">
+    <input type="submit" value="Submit">
 </form>
 </div>
 {% endblock %}
