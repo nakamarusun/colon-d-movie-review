@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 from math import ceil
 from os import path
 from datetime import datetime
+from random import randint
 import re
 
 bp = Blueprint("movies", __name__, url_prefix="/movies")
@@ -153,3 +154,13 @@ def movie_post(id):
                 cursor.execute("COMMIT;")
 
         return redirect(url_for("movies.movie", id=id))
+
+@bp.route("/random")
+def random():
+    # Will lead the user to a random movie.
+    cursor = db.mydb.cursor()
+    cursor.execute("SELECT id FROM movies;")
+
+    result = cursor.fetchall()
+
+    return redirect(url_for("movies.movie", id=result[randint(0, len(result) - 1)][0]))
