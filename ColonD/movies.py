@@ -1,3 +1,4 @@
+from functools import reduce
 from flask import Blueprint, request, redirect, session, current_app, abort
 from flask.helpers import flash, url_for
 from flask.templating import render_template
@@ -115,11 +116,17 @@ def movie(id):
     else:
         # If the movie exist.
         cursor = db.mydb.cursor()
-        cursor.execute("SELECT title, created, body, star, username FROM review r JOIN user u ON r.author_id=u.id WHERE movie_id=%s;", (id,))
+        cursor.execute("SELECT title, created, body, star, username FROM review r JOIN user u ON r.author_id=u.id WHERE movie_id=%s ORDER BY created DESC;", (id,))
+
+        query = cursor.fetchall()
+
+        avg_star = float(reduce(lambda x, y : x + y[3], query, 0)) / len(query)
+
         return render_template("movies/movies.html",
         movie=mov,
         img=get_movie_poster(mov[4], mov[0], mov[3]),
-        reviews=cursor.fetchall())
+        reviews=query,
+        avg_star=avg_star)
 
 @bp.route("/<string:id>/post", methods=["GET", "POST"])
 @user.login_required
