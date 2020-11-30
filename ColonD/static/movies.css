@@ -219,6 +219,39 @@ form input[type="text"] {
     font-size: medium;
 }
 
+form input[type="submit"] {
+    font-family: SourceSansPro;
+    font-size: large;
+    padding: 5px 20px 5px 20px;
+    border: 2px solid #37e2cb;
+    background-color: #37e2cb;
+    border-radius: 5px;
+    transition: all 0.1s;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #1ccaca;
+    border: 2px solid #1ccaca;
+}
+
+form input[type="button"] {
+    font-family: SourceSansPro;
+    font-size: large;
+    border: 2px solid #37e2cb;
+    background-color: rgb(255, 255, 255);
+    padding: 5px 20px 5px 20px;
+    border-radius: 5px;
+    transition: all 0.1s;
+    cursor: pointer;
+}
+
+form input[type="button"]:hover {
+    border: 2px solid #a5ece3;
+    background-color: #a5ece3;
+}
+
+
 form textarea {
     font-family: SourceSansPro;
     font-size: medium;
