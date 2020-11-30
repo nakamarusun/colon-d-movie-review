@@ -14,8 +14,23 @@
     transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+.moviecontainer .rev_btn {
+    flex: auto;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+    margin-right: 25px;
+    font-size: 25pt;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
 .moviecontainer:hover {
-    background-color: rgb(247, 233, 245);
+    background-color: rgb(247, 247, 247);
+}
+
+.moviecontainer:hover .rev_btn {
+    opacity: 1;
 }
 
 .moviecontainer:active {
@@ -29,7 +44,7 @@
     transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.moviecontainer img:hover {
+.moviecontainer:hover img {
     transform: scale(1.1);
 }
 
@@ -55,6 +70,18 @@
     font-size: 11pt;
     color: rgb(129, 129, 129);
     margin-top: 5px;
+}
+
+.moviecontainer .btn {
+    width: min-content;
+    height: min-content;
+    padding: 4px 5px 9px 5px;
+    border-radius: 20px;
+    transition: all 0.1s;
+}
+
+.moviecontainer .btn:hover {
+    background-color: rgb(230, 146, 188);
 }
 
 pages {
