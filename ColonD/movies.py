@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, session, current_app
+from flask import Blueprint, request, redirect, session, current_app, abort
 from flask.helpers import flash, url_for
 from flask.templating import render_template
 from ColonD import db
@@ -101,7 +101,7 @@ def movie(id):
 
     if len(query) == 0:
         # If there is no movie associated with that id
-        return "no tin here"
+        abort(404)
     else:
         # If the movie exist.
         mov = query[0]

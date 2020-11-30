@@ -1,4 +1,5 @@
 from flask import (Flask, render_template)
+from flask.templating import render_template_string
 from ColonD import db, instances
 from os import environ, makedirs
 
@@ -33,6 +34,10 @@ def create_app():
     @app.route("/favicon.ico")
     def img():
         return "yes"
+
+    @app.errorhandler(404)
+    def page404(e):
+        return render_template("404.html")
 
     from ColonD.cache import reg_static_uncache
     
