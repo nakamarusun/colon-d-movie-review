@@ -1,6 +1,7 @@
 from flask import Blueprint, request, redirect, session, current_app, abort
 from flask.helpers import flash, url_for
 from flask.templating import render_template
+from mysql.connector import cursor
 from ColonD import db, user
 from ColonD.util import util
 from random import choice
@@ -94,7 +95,9 @@ def home():
 
 def get_movie(id):
     cursor = db.mydb.cursor()
-    cursor.execute("SELECT movie_name, year_rel, runtime, director_name, m.id FROM movies m JOIN directors d ON m.director_id=d.id WHERE m.id='{}'".format(id))
+    # PENTING
+    # Apparently, you have to insert ',' in the end at the parameters.
+    cursor.execute("SELECT movie_name, year_rel, runtime, director_name, m.id FROM movies m JOIN directors d ON m.director_id=d.id WHERE m.id=%s", (id,))
 
     query = cursor.fetchall()
     if len(query) == 0:
@@ -110,9 +113,12 @@ def movie(id):
         abort(404)
     else:
         # If the movie exist.
+        cursor = db.mydb.cursor()
+        cursor.execute("SELECT title, created, body, star, username FROM review r JOIN user u ON r.author_id=u.id WHERE movie_id=%s;", (id,))
         return render_template("movies/movies.html",
         movie=mov,
-        img=get_movie_poster(mov[4], mov[0], mov[3]))
+        img=get_movie_poster(mov[4], mov[0], mov[3]),
+        reviews=cursor.fetchall())
 
 @bp.route("/<string:id>/post", methods=["GET", "POST"])
 @user.login_required

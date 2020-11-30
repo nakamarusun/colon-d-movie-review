@@ -273,6 +273,32 @@ form textarea {
     color: grey;
 }
 
-.fa-star {
+.reviewcontainer {
+    flex: auto;
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 0.5px solid rgb(209, 209, 209);
     cursor: pointer;
+    transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.content h1 {
+    font-family: SourceSansPro;
+    margin: 0px;
+}
+
+.content h3 {
+    font-family: SourceSansPro;
+    font-weight: normal;
+    color: #000000;
+}
+
+.content h4 {
+    margin: 0px;
+    margin-bottom: 20px;
+    font-family: SourceSansPro;
+    font-style: italic;
+    font-weight: normal;
+    color: #555555;
 }
