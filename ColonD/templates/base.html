@@ -24,7 +24,7 @@
 <outer>
     <sidebar>
     <div class="links" onclick="location.href='/'">Home</div>
-    <div class="links">Posts</div>
+    <div class="links" onclick="location.href='{{ url_for('movies.posts') }}'">Posts</div>
     <div class="links" onclick="location.href='{{ url_for('movies.home') }}'">Movies</div>
     <div class="links surprise" onclick="location.href='{{ url_for('movies.random') }}'">Surprise me!</div>
     <div class="copyright">©2020 DB srya</div>

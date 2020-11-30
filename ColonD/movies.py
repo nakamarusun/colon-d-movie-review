@@ -171,3 +171,18 @@ def random():
     result = cursor.fetchall()
 
     return redirect(url_for("movies.movie", id=result[randint(0, len(result) - 1)][0]))
+
+@bp.route("/posts")
+def posts():
+
+    # If the movie exist.
+    cursor = db.mydb.cursor()
+    cursor.execute("SELECT title, created, body, star, username FROM review r JOIN user u ON r.author_id=u.id ORDER BY created DESC;")
+
+    query = cursor.fetchall()
+
+    avg_star = float(reduce(lambda x, y : x + y[3], query, 0)) / len(query)
+
+    return render_template("home/posts.html",
+    reviews=query,
+    avg_star=avg_star)
