@@ -1,3 +1,4 @@
+import functools
 from flask import Blueprint, request, redirect, session
 from flask.helpers import flash, url_for
 from flask.templating import render_template
@@ -87,7 +88,7 @@ def login_user():
         else:
             query = query[0]
             username = query[1]
-            pass_hash = cursor.fetchall()[0][3]
+            pass_hash = query[3]
 
             # Checks password hash
             if not check_password_hash(pass_hash, password):
@@ -107,3 +108,16 @@ def logout_user():
     # Logs out the user from the website
     session.clear()
     return redirect(url_for("index"))
+
+def login_required(view):
+    #View decorator that redirects anonymous users to the login page.
+
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if session.get("user") == None:
+            flash("Login required!", "Error")
+            return redirect(url_for("user.login_user"))
+
+        return view(**kwargs)
+
+    return wrapped_view

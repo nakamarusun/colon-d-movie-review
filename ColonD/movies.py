@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, session, current_app, abort
 from flask.helpers import flash, url_for
 from flask.templating import render_template
-from ColonD import db
+from ColonD import db, user
 from ColonD.util import util
 from random import choice
 from requests import get
@@ -115,6 +115,7 @@ def movie(id):
         img=get_movie_poster(mov[4], mov[0], mov[3]))
 
 @bp.route("/<string:id>/post", methods=["GET", "POST"])
+@user.login_required
 def movie_post(id):
 
     mov = get_movie(id)
@@ -140,8 +141,9 @@ def movie_post(id):
             user_id = session.get("user_id")
             if user_id:
                 cursor = db.mydb.cursor()
-                cursor.execute("INSERT INTO review (movie_id, author_id, created, title, body, star) VALUES(%s, %s, %s, %s, %s, %s, %s)", (
+                cursor.execute("INSERT INTO review (movie_id, author_id, created, title, body, star) VALUES(%s, %s, %s, %s, %s, %s);", (
                     id, user_id, datetime.now(), title, content, star
                 ))
+                cursor.execute("COMMIT;")
 
         return redirect(url_for("movies.movie", id=id))
