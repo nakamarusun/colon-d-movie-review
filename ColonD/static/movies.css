@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+}
+
 .movielist {
     display: flex;
     flex-direction: column;
@@ -14,23 +18,8 @@
     transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.moviecontainer .rev_btn {
-    flex: auto;
-    display: flex;
-    justify-content: flex-end;
-    text-align: right;
-    margin-right: 25px;
-    font-size: 25pt;
-    opacity: 0;
-    transition: opacity 0.1s;
-}
-
 .moviecontainer:hover {
     background-color: rgb(247, 247, 247);
-}
-
-.moviecontainer:hover .rev_btn {
-    opacity: 1;
 }
 
 .moviecontainer:active {
@@ -192,4 +181,48 @@ pages h1 {
     padding: 10px 5px 10px 5px;
     font-size: 16pt;
     color: rgb(68, 68, 68);
+    max-width: 875px;
+}
+
+.rev_btn {
+    text-align: right;
+    font-size: 18pt;
+    border-radius: 20px;
+    color: rgb(41, 171, 247);
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.rev_btn:hover {
+    color: rgb(38, 145, 233);
+}
+
+form label {
+    font-family: SourceSansPro;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    text-align: right;
+    line-height: 26px;
+    margin-bottom: 10px;
+    width: 750px;
+}
+
+form input[type="text"] {
+    border: 1px solid rgb(179, 179, 179);
+    padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    margin-left: 20px;
+    font-family: SourceSansPro;
+    font-size: medium;
+}
+
+form textarea {
+    font-family: SourceSansPro;
+    font-size: medium;
+    border: 1px solid rgb(179, 179, 179);
+    padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    margin-left: 20px;
 }

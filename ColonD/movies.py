@@ -91,20 +91,37 @@ def home():
     movies_url=url_for('movies.home')
     )
 
-@bp.route("/<string:id>")
-def movie(id):
-
+def get_movie(id):
     cursor = db.mydb.cursor()
     cursor.execute("SELECT movie_name, year_rel, runtime, director_name, m.id FROM movies m JOIN directors d ON m.director_id=d.id WHERE m.id='{}'".format(id))
 
     query = cursor.fetchall()
-
     if len(query) == 0:
+        return None
+    return query[0]
+
+@bp.route("/<string:id>")
+def movie(id):
+
+    mov = get_movie(id)
+
+    if not mov:
         # If there is no movie associated with that id
         abort(404)
     else:
         # If the movie exist.
-        mov = query[0]
         return render_template("movies/movies.html",
+        movie=mov,
+        img=get_movie_poster(mov[4], mov[0], mov[3]))
+
+@bp.route("/<string:id>/post")
+def movie_post(id):
+
+    mov = get_movie(id)
+    if not mov:
+        # If there is no movie associated with that id
+        abort(404)
+    else:
+        return render_template("movies/post.html",
         movie=mov,
         img=get_movie_poster(mov[4], mov[0], mov[3]))

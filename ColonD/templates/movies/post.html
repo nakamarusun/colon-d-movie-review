@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='movies.css') }}">
+{% endblock %}
+
+{% block title %}
+{{ movie[0] }}
+{% endblock %}
+
+{% block content %}
+<h2>Writing a review for:</h2>
+<br>
+<div class="mov_title">
+    <img src="{{ img }}" style="width: 75px;height: 120px;">
+    <div style="margin-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; justify-content: flex-end;">
+    <h2 style="margin-bottom: 5px;">{{ movie[0] }}</h2>
+    <h3>Directed by {{ movie[3] }}</h3>
+    </div>
+</div>
+<div class="line_div">Post:</div>
+<div style="margin-top: 50px;">
+<form method="POST">
+    <label>Title: <input type="text" id="title" name="title" maxlength="75" size="70" /></label>
+    <label>Content: <textarea id="review" name="review" rows="12" cols="68"></textarea></label>
+</form>
+</div>
+{% endblock %}
