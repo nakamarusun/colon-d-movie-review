@@ -18,14 +18,14 @@ def connect_db(app):
         allow_local_infile=True,
         # raise_on_warnings=True
     )
-    # Enable loading data locally
-    mydb.cursor().execute("SET GLOBAL local_infile=1;")
 
 def init_database(app):
     # Initialize all the database and all the
     # tables and keep it empty.
 
     print("initializing tables...")
+    # Enable loading data locally
+    mydb.cursor().execute("SET GLOBAL local_infile=1;")
     with mydb.cursor() as cursor:
         # Creates the table here
         cursor.execute("USE " + app.config['DATABASE_NAME'])
@@ -58,7 +58,7 @@ def init_db_connection(app):
             # Will throw sql.errors.ProgrammingError when user
             # does not have permission.
             cursor.execute("CREATE DATABASE " + app.config['DATABASE_NAME'])
-            init_database(app)
+            # init_database(app)
 
         # Don't forget to use the database for the whole duration of the db.
         cursor.execute("USE " + app.config['DATABASE_NAME'])

@@ -20,7 +20,8 @@ def create_app():
     # Checks whether the app is on development mode
     if (app.config['ENV'] == "development"):
         print("Running on development mode.")
-        db.init_db_connection(app)
+    
+    db.init_db_connection(app)
 
     # Initializes all the instance folder
     try:

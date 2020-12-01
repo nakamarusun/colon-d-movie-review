@@ -8,7 +8,7 @@
 <body>
 
 <topbar>
-    <a href="/">
+    <a href="{{ url_for('index') }}">
     <img src="{{url_for('static', filename='title.png')}}" alt="Colon D Logo" style="width:150px; height:auto"></a>
     <user>
         {% if session.get("user", None) == None %}
@@ -23,7 +23,7 @@
 
 <outer>
     <sidebar>
-    <div class="links" onclick="location.href='/'">Home</div>
+    <div class="links" onclick="location.href='{{ url_for('index') }}'">Home</div>
     <div class="links" onclick="location.href='{{ url_for('movies.posts') }}'">Posts</div>
     <div class="links" onclick="location.href='{{ url_for('movies.home') }}'">Movies</div>
     <div class="links surprise" onclick="location.href='{{ url_for('movies.random') }}'">Surprise me!</div>
