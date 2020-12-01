@@ -41,8 +41,14 @@ def get_movie_poster(id, name, director):
             pass
     
     else:     
-        # Gets the image from google image scraping        
-        image = util.scrape_g_image("{}+movie+poster+{}".format(name, director), current_app.config['SMALL_IMAGE'])
+        # Gets the image from google image scraping
+        repeat = 0
+        image = None
+        while repeat < 3:
+            image = util.scrape_g_image("{}+movie+poster+{}".format(name, director), current_app.config['SMALL_IMAGE'])
+            if not image[0].startswith("https://encrypted"):
+                break
+            repeat += 1
 
         # If the image is successfully loaded,
         if image:
@@ -166,7 +172,7 @@ def movie_post(id):
 def random():
     # Will lead the user to a random movie.
     cursor = db.mydb.cursor()
-    cursor.execute("SELECT id FROM movies;")
+    cursor.execute("SELECT m.id FROM movies m JOIN directors d ON m.director_id=d.id;")
 
     result = cursor.fetchall()
 
