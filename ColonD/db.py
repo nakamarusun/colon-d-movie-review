@@ -23,12 +23,18 @@ def connect_db(app):
         # raise_on_warnings=True
     )
 
+def get_db():
+    if not mydb.is_connected():
+        mydb.connect()
+
+    return mydb
+
 def init_database(app):
     # Initialize all the database and all the
     # tables and keep it empty.
 
     print("initializing tables...")
-    with mydb.cursor() as cursor:
+    with get_db().cursor() as cursor:
         # Creates the table here
         cursor.execute("USE " + app.config['DATABASE_NAME'])
         with app.open_resource("schema.sql", "rt") as file:
@@ -52,7 +58,7 @@ def init_database(app):
                 except sql.errors.IntegrityError:
                     pass
 
-        mydb.commit()
+        get_db().commit()
         print("Recreated the tables.")
 
 def init_db_connection(app):
@@ -62,9 +68,9 @@ def init_db_connection(app):
 
     connect_db(app)
     app.cli.add_command(init_db)
-    with mydb.cursor() as cursor:
+    with get_db().cursor() as cursor:
         # Create cursor for future purposes
-        cursor = mydb.cursor()
+        cursor = get_db().cursor()
 
         cursor.execute("SHOW DATABASES")
         dbs = [ x[0] for x in cursor.fetchall() ]
@@ -86,7 +92,7 @@ def init_db():
     # Initializes the database from the terminal.
 
     connect_db(current_app)
-    cursor = mydb.cursor()
+    cursor = get_db().cursor()
     cursor.execute("DROP DATABASE IF EXISTS {}".format(current_app.config['DATABASE_NAME']))
     cursor.execute("CREATE DATABASE {}".format(current_app.config['DATABASE_NAME']))
     init_database(current_app)

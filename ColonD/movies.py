@@ -68,7 +68,7 @@ def home():
 
     query = None
 
-    with db.mydb.cursor() as cursor:
+    with db.get_db().cursor() as cursor:
     
         # Gets all the movie details from an offset (display as page)
         cursor.execute("SELECT movie_name, year_rel, runtime, director_name, m.id FROM movies m JOIN directors d ON m.director_id=d.id")
@@ -103,7 +103,7 @@ def home():
     )
 
 def get_movie(id):
-    cursor = db.mydb.cursor()
+    cursor = db.get_db().cursor()
     # PENTING
     # Apparently, you have to insert ',' in the end at the parameters.
     cursor.execute("SELECT movie_name, year_rel, runtime, director_name, m.id FROM movies m JOIN directors d ON m.director_id=d.id WHERE m.id=%s", (id,))
@@ -122,7 +122,7 @@ def movie(id):
         abort(404)
     else:
         # If the movie exist.
-        cursor = db.mydb.cursor()
+        cursor = db.get_db().cursor()
         cursor.execute("SELECT title, created, body, star, username FROM review r JOIN user u ON r.author_id=u.id WHERE movie_id=%s ORDER BY created DESC;", (id,))
 
         query = cursor.fetchall()
@@ -161,7 +161,7 @@ def movie_post(id):
         else:
             user_id = session.get("user_id")
             if user_id:
-                cursor = db.mydb.cursor()
+                cursor = db.get_db().cursor()
                 cursor.execute("INSERT INTO review (movie_id, author_id, created, title, body, star) VALUES(%s, %s, %s, %s, %s, %s);", (
                     id, user_id, datetime.now(), title, content, star
                 ))
@@ -172,7 +172,7 @@ def movie_post(id):
 @bp.route("/random")
 def random():
     # Will lead the user to a random movie.
-    cursor = db.mydb.cursor()
+    cursor = db.get_db().cursor()
     cursor.execute("SELECT m.id FROM movies m JOIN directors d ON m.director_id=d.id;")
 
     result = cursor.fetchall()
@@ -183,7 +183,7 @@ def random():
 def posts():
 
     # If the movie exist.
-    cursor = db.mydb.cursor()
+    cursor = db.get_db().cursor()
     cursor.execute("SELECT title, created, body, star, username, movie_name, m.id FROM review r JOIN user u ON r.author_id=u.id JOIN movies m ON r.movie_id=m.id ORDER BY created DESC;")
 
     query = cursor.fetchall()

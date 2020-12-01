@@ -25,7 +25,7 @@ def register_user():
         error = []
         
         # MySQL cursor
-        cursor = db.mydb.cursor()
+        cursor = db.get_db().cursor()
 
         cursor.execute("SELECT * FROM user WHERE username='{}'".format(user))
         if cursor.fetchall():
@@ -50,7 +50,7 @@ def register_user():
                 str(email),
                 generate_password_hash(password, salt_length=20)
             ))
-            db.mydb.commit()
+            db.get_db().commit()
             flash("Registration Succeeded!, log in to enter the site.", "Success")
             return redirect(url_for("user.login_user", referback=request.args.get("referback")))
 
@@ -73,7 +73,7 @@ def login_user():
         error = []
 
         # DB Cursor
-        cursor = db.mydb.cursor()
+        cursor = db.get_db().cursor()
 
         username = None
 
