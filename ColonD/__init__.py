@@ -2,11 +2,16 @@ from flask import (Flask, render_template)
 from flask.templating import render_template_string
 from ColonD import db, instances
 from os import environ, makedirs
+import os
 
 def create_app():
 
     # Create the main app
-    app = Flask(__name__)
+    project_root = os.path.dirname(os.path.realpath('__file__'))
+    app = Flask(__name__,
+        template_folder=os.path.join(project_root, 'ColonD/templates'),
+        static_folder=os.path.join(project_root, 'ColonD/static')
+    )
 
     # Load config from a json file
     app.config.from_json(environ.get("FLASK_TEST_CONF", "conf.json"))

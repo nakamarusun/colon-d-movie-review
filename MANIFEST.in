@@ -1,0 +1,5 @@
+include ColonD/schema.sql
+graft ColonD/static
+graft ColonD/DBblob
+graft ColonD/templates
+global-exclude *.pyc

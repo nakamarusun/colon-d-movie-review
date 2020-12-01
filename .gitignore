@@ -226,3 +226,8 @@ dmypy.json
 conf_test.json
 activate.ps1
 failed.html
+conf.json
+
+# WSGI stuff
+tmp/
+passenger_wsgi.py

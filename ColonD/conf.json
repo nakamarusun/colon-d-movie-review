@@ -1,6 +1,0 @@
-{
-    "DATABASE_HOST": "localhost",
-    "DATABASE_USER": "<CHANGETHIS>",
-    "DATABASE_PASS": "<CHANGETHIS>",
-    "DATABASE_NAME": "colond_db"
-}

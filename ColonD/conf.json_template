@@ -1,0 +1,10 @@
+// Rename this file to conf.json
+// Then, change the values to reflect the current configuration.
+
+{
+    "DATABASE_HOST": "localhost",
+    "DATABASE_USER": "<CHANGETHIS>",
+    "DATABASE_PASS": "<CHANGETHIS>",
+    "DATABASE_NAME": "colond_db",
+    "SMALL_IMAGE": false
+}
