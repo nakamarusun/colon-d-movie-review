@@ -23,7 +23,6 @@ def connect_db(app):
         # raise_on_warnings=True
     )
 
-@with_appcontext
 def get_db():
     if not mydb.is_connected():
         mydb.connect()
