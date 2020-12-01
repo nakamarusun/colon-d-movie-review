@@ -120,7 +120,7 @@ def movie(id):
 
         query = cursor.fetchall()
 
-        avg_star = float(reduce(lambda x, y : x + y[3], query, 0)) / len(query)
+        avg_star = float(reduce(lambda x, y : x + y[3], query, 0)) / len(query) if len(query) else 0
 
         return render_template("movies/movies.html",
         movie=mov,
