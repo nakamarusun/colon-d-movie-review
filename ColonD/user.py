@@ -59,8 +59,6 @@ def register_user():
 @bp.route("login", methods=["GET", "POST"])
 def login_user():
 
-    print(session.get("user", None))
-
     # Logs out the user if they are logged in
     if session.get("user", None) != None:
         flash("You are logged out.", "Success")

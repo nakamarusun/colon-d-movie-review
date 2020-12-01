@@ -6,6 +6,10 @@ from os import path
 
 mydb = None
 
+def handle_slashn(string):
+    if string == "\\N": return None
+    return string
+
 def connect_db(app):
     # Connects to the database server based on the json
     # configuration. and passes it to the global var.
@@ -24,8 +28,6 @@ def init_database(app):
     # tables and keep it empty.
 
     print("initializing tables...")
-    # Enable loading data locally
-    mydb.cursor().execute("SET GLOBAL local_infile=1;")
     with mydb.cursor() as cursor:
         # Creates the table here
         cursor.execute("USE " + app.config['DATABASE_NAME'])
@@ -34,6 +36,21 @@ def init_database(app):
 
                 string = line.strip().replace("\n", " ")
                 cursor.execute(string)
+        
+        # Loads all the available movie and director files
+        with app.open_resource(path.join("DBblob", "directors_fix.tsv"), "rt") as file:
+            for line in file:
+                arr = [ handle_slashn(i) for i in line.strip().split("\t") ]
+                cursor.execute("INSERT INTO directors VALUES (%s, %s, %s, %s)", arr)
+
+        # Same with movie files
+        with app.open_resource(path.join("DBblob", "movies_fix.tsv"), "rt") as file:
+            for line in file:
+                try:
+                    arr = [ handle_slashn(i) for i in line.strip().split("\t") ]
+                    cursor.execute("INSERT INTO movies VALUES (%s, %s, %s, %s, %s, %s)", arr)
+                except sql.errors.IntegrityError:
+                    pass
 
         mydb.commit()
         print("Recreated the tables.")

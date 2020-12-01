@@ -33,13 +33,3 @@ CREATE TABLE review (
   FOREIGN KEY (movie_id) REFERENCES movies(id),
   FOREIGN KEY (author_id) REFERENCES user(id)
 );
-
-LOAD DATA LOCAL INFILE './ColonD/DBblob/directors_fix.tsv'
-INTO TABLE directors
-FIELDS TERMINATED BY '\t'
-LINES TERMINATED BY '\n';
-
-LOAD DATA LOCAL INFILE './ColonD/DBblob/movies_fix.tsv'
-INTO TABLE movies
-FIELDS TERMINATED BY '\t'
-LINES TERMINATED BY '\n';
