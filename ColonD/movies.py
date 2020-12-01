@@ -49,6 +49,7 @@ def get_movie_poster(id, name, director):
             if not image[0].startswith("https://encrypted"):
                 break
             repeat += 1
+            print("Failed getting image, repeating..")
 
         # If the image is successfully loaded,
         if image:
@@ -183,7 +184,7 @@ def posts():
 
     # If the movie exist.
     cursor = db.mydb.cursor()
-    cursor.execute("SELECT title, created, body, star, username FROM review r JOIN user u ON r.author_id=u.id ORDER BY created DESC;")
+    cursor.execute("SELECT title, created, body, star, username, movie_name, m.id FROM review r JOIN user u ON r.author_id=u.id JOIN movies m ON r.movie_id=m.id ORDER BY created DESC;")
 
     query = cursor.fetchall()
 

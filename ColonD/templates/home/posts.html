@@ -13,10 +13,11 @@ Posts
 <h1>Recent reviews:</h1>
 <div class="movielist">
     {% for r in reviews %}
-    <a class="reviewcontainer" style="cursor:unset;">
+    <div class="reviewcontainer" style="cursor:unset;">
         <div class="content">
             <h1>{{ r[0] }}</h1>
-            <h4>Created {{ r[1] }} by {{ r[4] }}</h4>
+            <h4 style="margin: 0px">Created {{ r[1] }} by {{ r[4] }}</h4>
+            <h4>For <a href="{{ url_for('movies.movie', id=r[6]) }}" style="text-decoration: underline; cursor: pointer;">{{ r[5] }}</a></h4>
             <div class="star_container" style="margin:0px;">
             {% for i in range(10) %}
                 {% if i < r[3] %}
@@ -28,7 +29,7 @@ Posts
             </div>
             <h3 style="margin-top: 10px;">{{ r[2] }}</h3>
         </div>
-    </a>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}
