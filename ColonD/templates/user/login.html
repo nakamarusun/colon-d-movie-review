@@ -12,7 +12,7 @@ Register
 			<div><empty>🙋</empty><input name="user" type="text" class="input" placeholder="Username/Email" autofocus/></div>
 			<div><empty>🔑</empty><input name="pass" type="password" class="input" placeholder="Password" /></div>
 </form>
-<h3 style="text-align: right; width: 300px;"><a href="{{url_for('user.register_user')}}">Don't have an account? Register here</a></h3>
+<h3 style="text-align: right; width: 300px;"><a href="{{url_for('user.register_user', referback=request.args.get("referback"))}}">Don't have an account? Register here</a></h3>
 <btn-wrapper style="margin-top: 40px">
 <span class="btn" type="white" onclick="history.back()">Back</span>
 <input class="btn" type="submit" form="form" value="Login"/>

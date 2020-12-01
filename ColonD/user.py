@@ -52,7 +52,7 @@ def register_user():
             ))
             db.mydb.commit()
             flash("Registration Succeeded!, log in to enter the site.", "Success")
-            return redirect(url_for("user.login_user"))
+            return redirect(url_for("user.login_user", referback=request.args.get("referback")))
 
     return render_template("user/register.html")
 
@@ -97,7 +97,13 @@ def login_user():
         else:
             session["user"] = username
             session["user_id"] = query[0]
-            return redirect(url_for("index"))
+
+            # Will lead the user back to the previous page when successfully logged in
+            referlink = request.args.get("referback")
+
+            if not referlink:
+                return redirect(url_for("index"))
+            return redirect(referlink)
     
     return render_template("user/login.html")
 
@@ -114,7 +120,7 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if session.get("user") == None:
             flash("Login required!", "Error")
-            return redirect(url_for("user.login_user"))
+            return redirect(url_for("user.login_user", referback=request.referrer))
 
         return view(**kwargs)
 
