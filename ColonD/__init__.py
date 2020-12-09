@@ -1,6 +1,6 @@
 from flask import (Flask, render_template)
 from flask.templating import render_template_string
-from ColonD import db, instances
+from ColonD import db, instances, form
 from os import environ, makedirs
 import os
 
@@ -54,6 +54,7 @@ def create_app():
     from ColonD import user, movies
     app.register_blueprint(user.bp)
     app.register_blueprint(movies.bp)
+    app.register_blueprint(form.bp)
 
     if (app.config['ENV'] == "development"):
         print("App instantiation done!")
