@@ -231,3 +231,5 @@ conf.json
 # WSGI stuff
 tmp/
 passenger_wsgi.py
+restart.sh
+
